@@ -1,34 +1,92 @@
 body{
-font-family:Segoe UI;
-background:linear-gradient(135deg,#1e3c72,#2a5298);
-color:white;
-padding:40px;
+  margin:0;
+  font-family: 'Inter', sans-serif;
+  background:#f4f6f9;
+}
+
+.sidebar{
+  position:fixed;
+  width:240px;
+  height:100vh;
+  background:#111827;
+  color:white;
+  padding:20px;
+}
+
+.sidebar h2{
+  font-size:18px;
+  margin-bottom:30px;
+}
+
+.sidebar button{
+  width:100%;
+  background:none;
+  border:none;
+  color:white;
+  padding:12px;
+  text-align:left;
+  border-radius:8px;
+  cursor:pointer;
+  margin-bottom:10px;
+}
+
+.sidebar button:hover{
+  background:#1f2937;
+}
+
+.main{
+  margin-left:260px;
+  padding:30px;
 }
 
 .card{
-background:white;
-color:#2c3e50;
-padding:25px;
-border-radius:15px;
-margin-bottom:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  margin-bottom:20px;
 }
 
-input,select{
-width:100%;
-padding:8px;
-margin:6px 0;
+.btn{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
 }
 
-button{
-background:#27ae60;
-color:white;
-border:none;
-padding:12px;
-border-radius:8px;
-cursor:pointer;
+.btn-danger{
+  background:#dc2626;
 }
 
-button:hover{
-background:#219150;
+.btn-success{
+  background:#16a34a;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th, .table td{
+  padding:12px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  width:400px;
 }

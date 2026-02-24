@@ -2,29 +2,93 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dashboard</title>
+<title>Camp Scout Pro</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<script type="module">
-import { auth, db } from "./firebase.js";
-import { doc, getDoc } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<div class="sidebar">
+  <h2>🏕 Camp Scout</h2>
+  <button onclick="showSection('dashboard')">Dashboard</button>
+  <button onclick="showSection('sessions')">Sessions</button>
+  <button onclick="showSection('users')">Utilisateurs</button>
+  <button onclick="logout()">Déconnexion</button>
+</div>
 
-auth.onAuthStateChanged(async user=>{
-    if(!user){
-        location.href="index.html";
-        return;
-    }
+<div class="main">
 
-    const snap = await getDoc(doc(db,"users",user.uid));
-    const role = snap.data().role;
+  <!-- Dashboard -->
+  <div id="dashboardSection">
+    <div class="card">
+      <h3>Statistiques</h3>
+      <p>Total Sessions : <span id="totalSessions">0</span></p>
+      <p>Budget total : <span id="totalBudget">0</span> €</p>
+    </div>
+  </div>
 
-    if(role==="admin_premium") location.href="adminPremium.html";
-    if(role==="admin") location.href="admin.html";
-    if(role==="intendant") location.href="intendance.html";
-});
-</script>
+  <!-- Sessions -->
+  <div id="sessionsSection" style="display:none;">
+    <div class="card">
+      <button class="btn" onclick="openModal('createSessionModal')">
+        ➕ Nouvelle Session
+      </button>
+    </div>
+
+    <div class="card">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Budget</th>
+            <th>Coût</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody id="sessionsTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Users (admin premium only) -->
+  <div id="usersSection" style="display:none;">
+    <div class="card">
+      <button class="btn" onclick="openModal('createUserModal')">
+        ➕ Créer Utilisateur
+      </button>
+    </div>
+    <div id="usersList"></div>
+  </div>
+
+</div>
+
+<!-- MODALE SESSION -->
+<div class="modal" id="createSessionModal">
+  <div class="modal-content">
+    <h3>Créer Session</h3>
+    <input id="sessionName" placeholder="Nom">
+    <input type="number" id="budget" placeholder="Budget">
+    <button class="btn-success" onclick="createSession()">Créer</button>
+    <button class="btn-danger" onclick="closeModal('createSessionModal')">Annuler</button>
+  </div>
+</div>
+
+<!-- MODALE USER -->
+<div class="modal" id="createUserModal">
+  <div class="modal-content">
+    <h3>Créer Utilisateur</h3>
+    <input id="newEmail" placeholder="Email">
+    <input id="newPassword" placeholder="Mot de passe">
+    <select id="newRole">
+      <option value="admin">Admin</option>
+      <option value="intendant">Intendant</option>
+    </select>
+    <button class="btn-success" onclick="createUser()">Créer</button>
+    <button class="btn-danger" onclick="closeModal('createUserModal')">Annuler</button>
+  </div>
+</div>
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="ui.js"></script>
 
 </body>
 </html>
