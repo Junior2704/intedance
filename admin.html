@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Mes Sessions</h1>
+
+<div class="card">
+<h3>Créer une session</h3>
+
+<input id="nomSession" placeholder="Nom session">
+<input type="date" id="dateDebut">
+<input type="date" id="dateFin">
+<input type="number" id="nbScouts" placeholder="Nombre scouts">
+<input type="number" id="repasParJour" value="4">
+<input type="number" id="budget" placeholder="Budget (€)">
+
+<button onclick="createSession()">Créer</button>
+</div>
+
+<div id="sessionsList"></div>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { addDoc, collection, getDocs, query, where } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.createSession = async function(){
+
+const sessionRef = await addDoc(collection(db,"sessionsMenus"),{
+    nom: nomSession.value,
+    dateDebut: dateDebut.value,
+    dateFin: dateFin.value,
+    nbScouts: parseInt(nbScouts.value),
+    repasParJour: parseInt(repasParJour.value),
+    budget: parseFloat(budget.value),
+    createdBy: auth.currentUser.uid,
+    autorises: [],
+    statut:"brouillon",
+    coutTotal:0
+});
+
+alert("Session créée");
+}
+
+const q = query(collection(db,"sessionsMenus"),
+where("createdBy","==",auth.currentUser.uid));
+
+const snap = await getDocs(q);
+
+snap.forEach(s=>{
+sessionsList.innerHTML += `
+<div class="card">
+<h3>${s.data().nom}</h3>
+Budget: ${s.data().budget} €
+<br>Coût actuel: ${s.data().coutTotal} €
+</div>
+`;
+});
+</script>
+
+</body>
+</html>

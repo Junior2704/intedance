@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Premium</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Admin Premium - Gestion des comptes</h1>
+
+<div class="card">
+<h3>Créer un compte</h3>
+
+<input id="nom" placeholder="Nom">
+<input id="email" placeholder="Email">
+<input id="password" placeholder="Mot de passe">
+
+<select id="role">
+<option value="admin">Admin</option>
+<option value="intendant">Intendant</option>
+<option value="admin_premium">Admin Premium</option>
+</select>
+
+<button onclick="createUser()">Créer</button>
+</div>
+
+<div class="card">
+<h3>Utilisateurs existants</h3>
+<div id="usersList"></div>
+</div>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { createUserWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { setDoc, doc, getDocs, collection, deleteDoc } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.createUser = async function(){
+    const cred = await createUserWithEmailAndPassword(auth,
+        email.value,password.value);
+
+    await setDoc(doc(db,"users",cred.user.uid),{
+        nom: nom.value,
+        email: email.value,
+        role: role.value,
+        createdBy: auth.currentUser.uid
+    });
+
+    alert("Compte créé");
+    location.reload();
+}
+
+const snap = await getDocs(collection(db,"users"));
+snap.forEach(u=>{
+    usersList.innerHTML += `
+    <p>${u.data().nom} - ${u.data().role}</p>`;
+});
+</script>
+
+</body>
+</html>

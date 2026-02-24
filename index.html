@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Connexion - Camp Scout</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card login">
+<h2>Connexion</h2>
+
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Mot de passe">
+
+<button onclick="login()">Connexion</button>
+
+</div>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+window.login = async function(){
+    try{
+        await signInWithEmailAndPassword(auth,
+            document.getElementById("email").value,
+            document.getElementById("password").value
+        );
+        window.location.href="dashboard.html";
+    }catch(e){
+        alert(e.message);
+    }
+}
+</script>
+
+</body>
+</html>

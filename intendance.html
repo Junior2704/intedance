@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Intendance</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Intendance</h1>
+
+<div id="sessions"></div>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { collection, getDocs, query, where } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+auth.onAuthStateChanged(async user=>{
+const q = query(collection(db,"sessionsMenus"),
+where("autorises","array-contains",user.uid));
+
+const snap = await getDocs(q);
+
+snap.forEach(s=>{
+sessions.innerHTML += `
+<div class="card">
+<h3>${s.data().nom}</h3>
+<button onclick="ouvrirSession('${s.id}')">Ouvrir</button>
+</div>`;
+});
+});
+
+window.ouvrirSession = function(id){
+alert("Ici on charge les repas et on permet modification complète");
+}
+</script>
+
+</body>
+</html>
