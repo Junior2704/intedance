@@ -3,30 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <title>Détail Session</title>
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family: 'Inter', sans-serif;
+  background:#f4f6f9;
+  margin:0;
+  padding:30px;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+}
+
+.card{
+  background:white;
+  border-radius:14px;
+  padding:25px;
+  margin-bottom:25px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+h2{
+  margin-top:0;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:14px;
+}
+
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.primary{
+  background:#4f46e5;
+  color:white;
+}
+
+.danger{
+  background:#ef4444;
+  color:white;
+}
+
+.badge{
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  background:#e0e7ff;
+  color:#4338ca;
+}
+
+.meal-card{
+  background:#f9fafb;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  width:400px;
+}
+</style>
 </head>
+
 <body>
 
-<header>
-  <h2>Détail Session</h2>
-  <button onclick="history.back()">Retour</button>
-</header>
-
 <div class="container">
-  <div id="sessionInfo"></div>
-  <div id="mealsContainer"></div>
+
+<div class="card">
+<h2>Informations Générales</h2>
+<div class="grid">
+<input id="name" placeholder="Nom session">
+<input id="trainer" placeholder="Formateur">
+<input type="date" id="startDate">
+<input type="date" id="endDate">
+<input type="time" id="startTime">
+<input type="time" id="endTime">
+<input id="location" placeholder="Lieu">
+<input type="number" id="capacity" placeholder="Capacité">
+<input type="number" id="price" placeholder="Prix (€)">
+<select id="status">
+<option>Brouillon</option>
+<option>Ouverte</option>
+<option>Fermée</option>
+<option>Archivée</option>
+</select>
+</div>
+<br>
+<button class="primary" onclick="saveSession()">Sauvegarder</button>
 </div>
 
-<!-- MODALE EDIT REPAS -->
+<div class="card">
+<h2>Repas</h2>
+<div id="mealsList"></div>
+<br>
+<button class="primary" onclick="openMealModal()">+ Ajouter un repas</button>
+</div>
+
+</div>
+
+<!-- MODALE REPAS -->
+
 <div class="modal" id="mealModal">
-  <div class="modal-content">
-    <h3>Modifier repas</h3>
-    <input id="editScouts" type="number">
-    <input id="editTags" placeholder="Tags séparés par ,">
-    <button id="saveMealBtn">Sauvegarder</button>
-  </div>
+<div class="modal-content">
+<h3>Nouveau repas</h3>
+<input id="mealType" placeholder="Type (Déjeuner...)">
+<input id="mealLabel" placeholder="Nom / description">
+<input id="mealOptions" placeholder="Options séparées par virgule">
+<br><br>
+<button class="primary" onclick="addMeal()">Ajouter</button>
+<button onclick="closeMealModal()">Annuler</button>
+</div>
 </div>
 
-<script type="module" src="js/sessions-detail.js"></script>
+<script type="module" src="sessions-detail.js"></script>
+
 </body>
 </html>
