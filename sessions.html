@@ -8,49 +8,31 @@
 <body>
 
 <header>
-  <h2>Sessions</h2>
+  <h2>Mes Sessions</h2>
   <button onclick="location.href='dashboard.html'">Retour</button>
 </header>
 
 <div class="container">
-  <div class="card">
-    <h3>Créer une session</h3>
-    <input id="sessionName" placeholder="Nom session">
-    <input id="budget" type="number" placeholder="Budget €">
-    <button id="createSession">Créer</button>
-  </div>
+
+  <button id="openModal">+ Nouvelle Session</button>
 
   <div id="sessionsList"></div>
+
 </div>
 
-<script type="module">
-import { auth, db } from "./js/firebase-config.js";
-import {
-  collection,
-  addDoc,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+<!-- MODALE CREATION SESSION -->
+<div class="modal" id="sessionModal">
+  <div class="modal-content">
+    <h3>Créer une session</h3>
+    <input id="name" placeholder="Nom session">
+    <input id="startDate" type="date">
+    <input id="endDate" type="date">
+    <input id="scouts" type="number" placeholder="Nombre de scouts">
+    <input id="allergies" placeholder="Allergies globales (séparées par ,)">
+    <button id="createSession">Créer</button>
+  </div>
+</div>
 
-document.getElementById("createSession").onclick = async () => {
-  await addDoc(collection(db, "sessions"), {
-    name: sessionName.value,
-    budget: Number(budget.value),
-    adminId: auth.currentUser.uid,
-    createdAt: new Date()
-  });
-  location.reload();
-};
-
-const snapshot = await getDocs(collection(db, "sessions"));
-snapshot.forEach(doc => {
-  sessionsList.innerHTML += `
-    <div class="card">
-      <strong>${doc.data().name}</strong><br>
-      Budget: ${doc.data().budget} €
-    </div>
-  `;
-});
-</script>
-
+<script type="module" src="js/sessions.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Utilisateurs</title>
+<title>Gestion Users</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,25 +13,25 @@
 </header>
 
 <div class="container">
+
+  <button id="openUserModal">+ Ajouter User</button>
+
   <div id="usersList"></div>
+
 </div>
 
-<script type="module">
-import { db } from "./js/firebase-config.js";
-import {
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+<div class="modal" id="userModal">
+  <div class="modal-content">
+    <h3>Créer utilisateur</h3>
+    <input id="newEmail" placeholder="Email">
+    <select id="newRole">
+      <option value="admin">Admin</option>
+      <option value="intendant">Intendant</option>
+    </select>
+    <button id="createUser">Créer</button>
+  </div>
+</div>
 
-const snapshot = await getDocs(collection(db, "users"));
-snapshot.forEach(doc => {
-  usersList.innerHTML += `
-    <div class="card">
-      ${doc.data().email} - ${doc.data().role}
-    </div>
-  `;
-});
-</script>
-
+<script type="module" src="js/users.js"></script>
 </body>
 </html>

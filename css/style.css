@@ -5,9 +5,9 @@ body {
 }
 
 header {
-  background: #1e293b;
+  background: #0f172a;
   color: white;
-  padding: 15px;
+  padding: 15px 25px;
   display: flex;
   justify-content: space-between;
 }
@@ -16,33 +16,43 @@ header {
   padding: 30px;
 }
 
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .card {
   background: white;
   padding: 20px;
-  margin-bottom: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 }
 
-button {
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background: #2563eb;
-  color: white;
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  width: 400px;
+  border-radius: 12px;
 }
 
 input, select {
-  padding: 10px;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
   border-radius: 8px;
   border: 1px solid #ddd;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
 }
