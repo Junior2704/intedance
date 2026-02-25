@@ -2,93 +2,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Camp Scout Pro</title>
-<link rel="stylesheet" href="style.css">
+<title>Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="sidebar">
-  <h2>🏕 Camp Scout</h2>
-  <button onclick="showSection('dashboard')">Dashboard</button>
-  <button onclick="showSection('sessions')">Sessions</button>
-  <button onclick="showSection('users')">Utilisateurs</button>
-  <button onclick="logout()">Déconnexion</button>
-</div>
+<header>
+  <h2>Dashboard</h2>
+  <button id="logoutBtn">Déconnexion</button>
+</header>
 
-<div class="main">
-
-  <!-- Dashboard -->
-  <div id="dashboardSection">
-    <div class="card">
-      <h3>Statistiques</h3>
-      <p>Total Sessions : <span id="totalSessions">0</span></p>
-      <p>Budget total : <span id="totalBudget">0</span> €</p>
-    </div>
+<div class="container grid">
+  <div class="card" onclick="location.href='sessions.html'">
+    Gérer les Sessions
   </div>
-
-  <!-- Sessions -->
-  <div id="sessionsSection" style="display:none;">
-    <div class="card">
-      <button class="btn" onclick="openModal('createSessionModal')">
-        ➕ Nouvelle Session
-      </button>
-    </div>
-
-    <div class="card">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Budget</th>
-            <th>Coût</th>
-            <th>Statut</th>
-          </tr>
-        </thead>
-        <tbody id="sessionsTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Users (admin premium only) -->
-  <div id="usersSection" style="display:none;">
-    <div class="card">
-      <button class="btn" onclick="openModal('createUserModal')">
-        ➕ Créer Utilisateur
-      </button>
-    </div>
-    <div id="usersList"></div>
-  </div>
-
-</div>
-
-<!-- MODALE SESSION -->
-<div class="modal" id="createSessionModal">
-  <div class="modal-content">
-    <h3>Créer Session</h3>
-    <input id="sessionName" placeholder="Nom">
-    <input type="number" id="budget" placeholder="Budget">
-    <button class="btn-success" onclick="createSession()">Créer</button>
-    <button class="btn-danger" onclick="closeModal('createSessionModal')">Annuler</button>
+  <div class="card" onclick="location.href='users.html'">
+    Gestion Utilisateurs
   </div>
 </div>
 
-<!-- MODALE USER -->
-<div class="modal" id="createUserModal">
-  <div class="modal-content">
-    <h3>Créer Utilisateur</h3>
-    <input id="newEmail" placeholder="Email">
-    <input id="newPassword" placeholder="Mot de passe">
-    <select id="newRole">
-      <option value="admin">Admin</option>
-      <option value="intendant">Intendant</option>
-    </select>
-    <button class="btn-success" onclick="createUser()">Créer</button>
-    <button class="btn-danger" onclick="closeModal('createUserModal')">Annuler</button>
-  </div>
-</div>
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="ui.js"></script>
-
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

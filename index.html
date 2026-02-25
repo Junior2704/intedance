@@ -2,38 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Connexion - Camp Scout</title>
-<link rel="stylesheet" href="style.css">
+<title>Scout Manager</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="card login">
-<h2>Connexion</h2>
-
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Mot de passe">
-
-<button onclick="login()">Connexion</button>
-
+<div class="container">
+  <div class="card">
+    <h2>Connexion</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Mot de passe">
+    <button id="loginBtn">Connexion</button>
+    <button id="registerBtn">Créer un compte Admin</button>
+  </div>
 </div>
 
-<script type="module">
-import { auth } from "./firebase.js";
-import { signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-window.login = async function(){
-    try{
-        await signInWithEmailAndPassword(auth,
-            document.getElementById("email").value,
-            document.getElementById("password").value
-        );
-        window.location.href="dashboard.html";
-    }catch(e){
-        alert(e.message);
-    }
-}
-</script>
-
+<script type="module" src="js/auth.js"></script>
 </body>
 </html>

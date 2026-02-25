@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sessions</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <h2>Sessions</h2>
+  <button onclick="location.href='dashboard.html'">Retour</button>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h3>Créer une session</h3>
+    <input id="sessionName" placeholder="Nom session">
+    <input id="budget" type="number" placeholder="Budget €">
+    <button id="createSession">Créer</button>
+  </div>
+
+  <div id="sessionsList"></div>
+</div>
+
+<script type="module">
+import { auth, db } from "./js/firebase-config.js";
+import {
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+document.getElementById("createSession").onclick = async () => {
+  await addDoc(collection(db, "sessions"), {
+    name: sessionName.value,
+    budget: Number(budget.value),
+    adminId: auth.currentUser.uid,
+    createdAt: new Date()
+  });
+  location.reload();
+};
+
+const snapshot = await getDocs(collection(db, "sessions"));
+snapshot.forEach(doc => {
+  sessionsList.innerHTML += `
+    <div class="card">
+      <strong>${doc.data().name}</strong><br>
+      Budget: ${doc.data().budget} €
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>
