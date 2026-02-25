@@ -52,7 +52,7 @@ const snapshot = await getDocs(collection(db,"sessions"));
 snapshot.forEach(doc => {
   if (doc.data().adminId === auth.currentUser.uid) {
     sessionsList.innerHTML += `
-      <div class="card" onclick="location.href='session-detail.html?id=${doc.id}'">
+      <div class="card" onclick="location.href='sessions-detail.html?id=${doc.id}'">
         <strong>${doc.data().name}</strong><br>
         ${doc.data().startDate} → ${doc.data().endDate}
       </div>
