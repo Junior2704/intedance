@@ -11,7 +11,16 @@ const firebaseConfig = {
   appId: "1:613056086995:web:d63e43f0ed9334bbb2e526",
   measurementId: "G-251GWK26LC"
 };
-
+const nameInput = document.getElementById("name");
+const trainerInput = document.getElementById("trainer");
+const startDateInput = document.getElementById("startDate");
+const endDateInput = document.getElementById("endDate");
+const startTimeInput = document.getElementById("startTime");
+const endTimeInput = document.getElementById("endTime");
+const locationInput = document.getElementById("location");
+const capacityInput = document.getElementById("capacity");
+const priceInput = document.getElementById("price");
+const statusInput = document.getElementById("status");
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -26,16 +35,16 @@ async function loadSession(){
 
   sessionData = snap.data();
 
-  name.value = sessionData.name || "";
-  trainer.value = sessionData.trainer || "";
-  startDate.value = sessionData.startDate || "";
-  endDate.value = sessionData.endDate || "";
-  startTime.value = sessionData.startTime || "";
-  endTime.value = sessionData.endTime || "";
-  location.value = sessionData.location || "";
-  capacity.value = sessionData.capacity || "";
-  price.value = sessionData.price || "";
-  status.value = sessionData.status || "";
+ nameInput.value = sessionData.name || "";
+trainerInput.value = sessionData.trainer || "";
+startDateInput.value = sessionData.startDate || "";
+endDateInput.value = sessionData.endDate || "";
+startTimeInput.value = sessionData.startTime || "";
+endTimeInput.value = sessionData.endTime || "";
+locationInput.value = sessionData.location || "";
+capacityInput.value = sessionData.capacity || "";
+priceInput.value = sessionData.price || "";
+statusInput.value = sessionData.status || "";
 
   renderMeals();
 }
