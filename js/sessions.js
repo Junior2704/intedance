@@ -14,8 +14,10 @@ document.getElementById("createSessionBtn").onclick = async () => {
   const start = startInput.value;
   const end = endInput.value;
   const scouts = Number(scoutsInput.value);
-  const allergies = allergiesInput.value.split(",");
-
+const allergies = allergiesInput.value
+  .split(",")
+  .map(a => a.trim())
+  .filter(a => a !== "");
   const sessionRef = await addDoc(collection(db, "sessions"), {
     name,
     startDate: start,
