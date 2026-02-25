@@ -2,21 +2,19 @@ import { auth, db } from "./firebase-config.js";
 import {
   collection,
   addDoc,
-  getDocs,
-  doc,
-  setDoc
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const modal = document.getElementById("sessionModal");
 document.getElementById("openModal").onclick = () => modal.style.display = "flex";
 
-document.getElementById("createSession").onclick = async () => {
+document.getElementById("createSessionBtn").onclick = async () => {
 
   const name = nameInput.value;
-  const start = startDate.value;
-  const end = endDate.value;
+  const start = startInput.value;
+  const end = endInput.value;
   const scouts = Number(scoutsInput.value);
-  const allergies = allergies.value.split(",");
+  const allergies = allergiesInput.value.split(",");
 
   const sessionRef = await addDoc(collection(db, "sessions"), {
     name,
@@ -28,14 +26,11 @@ document.getElementById("createSession").onclick = async () => {
     createdAt: new Date()
   });
 
-  // Création automatique repas
   const startDateObj = new Date(start);
   const endDateObj = new Date(end);
 
   for (let d = new Date(startDateObj); d <= endDateObj; d.setDate(d.getDate() + 1)) {
-
     const dateStr = d.toISOString().split("T")[0];
-
     const meals = ["petit-dej","dej","gouter","diner"];
 
     for (let meal of meals) {
@@ -44,8 +39,7 @@ document.getElementById("createSession").onclick = async () => {
         type: meal,
         numberOfScouts: scouts,
         tags: [],
-        isDeleted: false,
-        createdAt: new Date()
+        isDeleted: false
       });
     }
   }
@@ -54,14 +48,12 @@ document.getElementById("createSession").onclick = async () => {
   location.reload();
 };
 
-// Affichage sessions
-const snapshot = await getDocs(collection(db, "sessions"));
+const snapshot = await getDocs(collection(db,"sessions"));
 snapshot.forEach(doc => {
   if (doc.data().adminId === auth.currentUser.uid) {
     sessionsList.innerHTML += `
-      <div class="card">
+      <div class="card" onclick="location.href='session-detail.html?id=${doc.id}'">
         <strong>${doc.data().name}</strong><br>
-        Scouts: ${doc.data().numberOfScouts}<br>
         ${doc.data().startDate} → ${doc.data().endDate}
       </div>
     `;

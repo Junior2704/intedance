@@ -1,15 +1,16 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f9;
+  font-family: 'Inter', sans-serif;
+  background: #f1f5f9;
 }
 
 header {
   background: #0f172a;
   color: white;
-  padding: 15px 25px;
+  padding: 18px 30px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .container {
@@ -20,39 +21,60 @@ button {
   background: #2563eb;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 16px;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+}
+
+button.secondary {
+  background: #64748b;
 }
 
 .card {
   background: white;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
   margin-bottom: 20px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
 }
 
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.45);
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
   background: white;
   padding: 30px;
-  width: 400px;
-  border-radius: 12px;
+  width: 480px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
 input, select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
   border-radius: 8px;
   border: 1px solid #ddd;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #e0f2fe;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-right: 6px;
 }
